@@ -268,7 +268,7 @@ static void copyloop(int fd1, int fd2) {
 		}
 		int infd = (fds[0].revents & POLLIN) ? fd1 : fd2;
 		int outfd = infd == fd2 ? fd1 : fd2;
-		char buf[1024];
+		char buf[2048];
 		ssize_t sent = 0, n = read(infd, buf, sizeof buf);
 		if(n <= 0) return;
 		while(sent < n) {
@@ -299,7 +299,7 @@ static enum errorcode check_credentials(unsigned char* buf, size_t n) {
 static void* clientthread(void *data) {
 	struct thread *t = data;
 	t->state = SS_1_CONNECTED;
-	unsigned char buf[1024];
+	unsigned char buf[2048];
 	ssize_t n;
 	int ret;
 	int remotefd = -1;
